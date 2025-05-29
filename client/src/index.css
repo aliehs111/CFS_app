@@ -1,0 +1,35 @@
+
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-neutral-light text-neutral-dark font-body leading-relaxed;
+  }
+  a {
+    @apply text-accent hover:text-accent-light underline-offset-2;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block px-4 py-2 rounded-md font-semibold text-white shadow;
+  }
+  .btn-primary {
+    @apply btn bg-primary hover:bg-primary-light;
+  }
+  .btn-secondary {
+    @apply btn bg-accent hover:bg-accent-light;
+  }
+  .card {
+    @apply bg-white rounded-lg shadow p-6;
+  }
+}
