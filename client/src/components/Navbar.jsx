@@ -1,8 +1,7 @@
-// src/components/Navbar.jsx
-import { useState } from 'react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Dialog, DialogPanel } from '@headlessui/react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const links = [
   { name: 'Home', to: '/' },
@@ -10,32 +9,62 @@ const links = [
   { name: 'Projects', to: '/projects' },
   { name: 'Qualifications', to: '/qualifications' },
   { name: 'Contact', to: '/contact' },
-];
+]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-slate-800">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 text-white">
-        <Link to="/" className="text-xl font-bold">Cavalier Flooring</Link>
+    <header className="fixed inset-x-0 top-0 z-50 bg-accent-dark shadow-md">
+      <nav className="container mx-auto flex items-center justify-between p-6">
+        <Link to="/" className="text-white text-xl font-heading">
+          Cavalier Flooring
+        </Link>
+        {/* Desktop Links */}
         <div className="hidden lg:flex lg:space-x-8">
-          {links.map(l => <Link key={l.name} to={l.to} className="hover:text-amber-400">{l.name}</Link>)}
+          {links.map((l) => (
+            <Link
+              key={l.name}
+              to={l.to}
+              className="text-white hover:text-amber-400 font-medium"
+            >
+              {l.name}
+            </Link>
+          ))}
         </div>
+        {/* Mobile Toggle */}
         <div className="lg:hidden">
-          <button onClick={() => setOpen(true)}><Bars3Icon className="h-6 w-6"/></button>
+          <button onClick={() => setOpen(true)} className="text-white">
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
         </div>
-        {/* Mobile menu */}
-        <Dialog open={open} onClose={setOpen} className="lg:hidden">
-          <DialogPanel className="fixed inset-0 bg-slate-800 p-6">
-            <button onClick={() => setOpen(false)}><XMarkIcon className="h-6 w-6"/></button>
-            <div className="mt-6 space-y-4">
-              {links.map(l => (
-                <Link key={l.name} to={l.to} onClick={() => setOpen(false)} className="block">{l.name}</Link>
-              ))}
-            </div>
-          </DialogPanel>
-        </Dialog>
       </nav>
+
+      {/* Mobile Menu */}
+      <Dialog open={open} onClose={setOpen} className="lg:hidden">
+        <Dialog.Panel className="fixed inset-0 bg-accent-dark p-6">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="text-white text-xl font-heading">
+              Cavalier Flooring
+            </Link>
+            <button onClick={() => setOpen(false)} className="text-white">
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <div className="mt-6 space-y-4">
+            {links.map((l) => (
+              <Link
+                key={l.name}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="block text-white hover:text-amber-400 font-medium"
+              >
+                {l.name}
+              </Link>
+            ))}
+          </div>
+        </Dialog.Panel>
+      </Dialog>
     </header>
-  );
+  )
 }
